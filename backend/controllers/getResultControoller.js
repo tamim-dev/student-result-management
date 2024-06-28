@@ -24,13 +24,12 @@ let getResultController = async (req, res) => {
             session,
         });
 
-
         if (data) {
             return res
                 .status(201)
                 .send({ success: "Get Result successfully", data });
         } else {
-            return res.status(400).send({
+            return res.send({
                 error: "Student is not found",
             });
         }

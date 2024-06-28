@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, Space, message } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logo from "../assets/logo.svg";
 
 const optionsDepartment = [
     { value: "BBA", label: "BBA" },
@@ -60,11 +61,17 @@ const Home = () => {
         if (user_data.data.data) {
             navigate("/result", { state: { user_data: user_data.data.data } });
         }
+        if (user_data.data.error) {
+            success();
+        }
     };
 
     return (
         <>
             {contextHolder}
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <img src={logo} style={{ width: "100px" }} />
+            </div>
             <Form
                 name="basic"
                 labelCol={{
@@ -73,9 +80,8 @@ const Home = () => {
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "50px",
+                    marginTop: "20px",
                 }}
                 initialValues={{
                     remember: true,
