@@ -15,9 +15,8 @@ let addResultController = async (req, res) => {
         } = req.body;
 
         const findData = await resultSchema.find({ roll: roll });
-        const findData2 = await resultSchema.find({ section: section });
 
-        if (findData.length === 0 && findData2.length === 0) {
+        if (findData.length === 0) {
             const result = new resultSchema({
                 department,
                 section,
