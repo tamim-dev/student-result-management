@@ -45,7 +45,7 @@ const Home = () => {
     const onFinish = async (values) => {
         let data = {
             department: values.department,
-            section: values.section,
+            session: values.session,
             semester: values.semester,
             roll: values.roll,
             name: values.name,
@@ -188,18 +188,18 @@ const Home = () => {
                 </Form.Item>
                 <Form.Item
                     style={{ width: "600px" }}
-                    name="section"
-                    label="Section"
+                    name="session"
+                    label="Session"
                     rules={[
                         {
                             required: true,
-                            message: "Select section",
+                            message: "Select session",
                         },
                     ]}
                 >
                     <Select
                         options={optionsSection}
-                        placeholder="Select section"
+                        placeholder="Select session"
                     ></Select>
                 </Form.Item>
 

@@ -2,13 +2,13 @@ let resultSchema = require("../schema/resultSchema");
 
 let getResultController = async (req, res) => {
     try {
-        const { department, section, semester, roll } = req.body;
+        const { department, session, semester, roll } = req.query;
 
         if (!department) {
             return res.status(400).send({ error: "Department is required" });
         }
-        if (!section) {
-            return res.status(400).send({ error: "Section is required" });
+        if (!session) {
+            return res.status(400).send({ error: "Session is required" });
         }
         if (!semester) {
             return res.status(400).send({ error: "Semester is required" });
@@ -19,10 +19,12 @@ let getResultController = async (req, res) => {
 
         let data = await resultSchema.findOne({
             department,
-            roll,
+            roll: +roll,
             semester,
-            section,
+            session,
         });
+
+
         if (data) {
             return res
                 .status(201)

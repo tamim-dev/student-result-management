@@ -23,7 +23,7 @@ const resultSchema = new Schema({
         type: Number,
         required: true,
     },
-    section: {
+    session: {
         type: String,
         enum: [
             "2016-2017",

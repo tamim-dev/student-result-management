@@ -4,7 +4,7 @@ let addResultController = async (req, res) => {
     try {
         const {
             department,
-            section,
+            session,
             semester,
             roll,
             name,
@@ -19,7 +19,7 @@ let addResultController = async (req, res) => {
         if (findData.length === 0) {
             const result = new resultSchema({
                 department,
-                section,
+                session,
                 semester,
                 roll,
                 name,
