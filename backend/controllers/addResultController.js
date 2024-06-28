@@ -2,7 +2,17 @@ let resultSchema = require("../schema/resultSchema");
 
 let addResultController = async (req, res) => {
     try {
-        const { department, section, semester, roll } = req.body;
+        const {
+            department,
+            section,
+            semester,
+            roll,
+            name,
+            fathername,
+            mothername,
+            gpa,
+            subjects,
+        } = req.body;
 
         const findData = await resultSchema.find({ roll: roll });
         const findData2 = await resultSchema.find({ section: section });
@@ -13,6 +23,11 @@ let addResultController = async (req, res) => {
                 section,
                 semester,
                 roll,
+                name,
+                fathername,
+                mothername,
+                gpa,
+                subjects,
             });
 
             await result.save();

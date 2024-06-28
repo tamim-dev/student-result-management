@@ -6,48 +6,52 @@ let User = require("../schema/userSchema");
 const bcrypt = require("bcrypt");
 
 let registrationController = async (req, res) => {
-    let { name, email, password } = req.body;
-    let existingUser = await User.find({ email: email });
+    try {
+        const { name, email, password } = req.body;
 
-    if (existingUser.length == 0) {
         if (!name) {
-            res.send({ error: "Name required" });
-        } else if (!email) {
-            res.send({ error: "Email required" });
-        } else if (!password) {
-            res.send({ error: "Password required" });
-        } else {
-            if (email) {
-                if (!emailValidation(email)) {
-                    return res.send({ error: "Valid Email Required" });
-                }
-            }
-            if (password) {
-                if (!passwordValidation(password)) {
-                    return res.send({
-                        error: "Enter an password 8 characters includes letter and number",
-                    });
-                }
-            }
-
-            bcrypt.hash(password, 10, async function (err, hash) {
-                let user = new User({
-                    name: name,
-                    email: email,
-                    password: hash,
-                });
-
-                user.save();
-                res.send({
-                    success: "Registration successful",
-                    name: user.name,
-                    email: user.email,
-                    id: user._id,
-                });
+            return res.status(400).send({ error: "Name is required" });
+        }
+        if (!email) {
+            return res.status(400).send({ error: "Email is required" });
+        }
+        if (!password) {
+            return res.status(400).send({ error: "Password is required" });
+        }
+        if (!emailValidation(email)) {
+            return res.status(400).send({ error: "Valid email is required" });
+        }
+        if (!passwordValidation(password)) {
+            return res.status(400).send({
+                error: "Password must be at least 8 characters long and include both letters and numbers",
             });
         }
-    } else {
-        res.send({ error: "Already email exits" });
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).send({ error: "Email already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = new User({
+            name,
+            email,
+            password: hashedPassword,
+        });
+
+        await user.save();
+
+        res.status(201).send({
+            success: "Registration successful",
+            name: user.name,
+            email: user.email,
+            id: user._id,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Internal Server Error" });
     }
 };
 

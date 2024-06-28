@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const subjectSchema = new Schema({
+    subjectname: { type: String, required: true },
+    subjectcode: { type: Number, required: true },
+    score: { type: Number, required: true },
+    gpa: { type: String, required: true },
+});
+
 const resultSchema = new Schema({
     department: {
         type: String,
@@ -30,6 +37,23 @@ const resultSchema = new Schema({
         ],
         required: true,
     },
+    name: {
+        type: String,
+        required: true,
+    },
+    fathername: {
+        type: String,
+        required: true,
+    },
+    mothername: {
+        type: String,
+        required: true,
+    },
+    gpa: {
+        type: String,
+        required: true,
+    },
+    subjects: [subjectSchema],
 });
 
 module.exports = mongoose.model("Result", resultSchema);
