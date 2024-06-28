@@ -2,35 +2,35 @@ let User = require("../schema/userSchema");
 const bcrypt = require("bcrypt");
 
 let loginController = async (req, res) => {
-    let { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    let existingUser = await User.find({ email: email });
+        const existingUser = await User.findOne({ email });
 
-    if (existingUser.length == 0) {
-        res.send({ error: "Credential invalid" });
-    } else {
-        if (existingUser[0].verify == false) {
-            res.send({ error: "Please verify Email" });
-        } else {
-            bcrypt.compare(
-                password,
-                existingUser[0].password,
-                function (err, result) {
-                    if (result) {
-                        res.send({
-                            success: "Login successful",
-                            id: existingUser[0]._id,
-                            name: existingUser[0].name,
-                            email: existingUser[0].email,
-                            role: existingUser[0].role,
-                            verify: existingUser[0].verify,
-                        });
-                    } else {
-                        res.send({ error: "Password invalid" });
-                    }
-                }
-            );
+        if (!existingUser) {
+            return res.status(401).send({ error: "Invalid credentials" });
         }
+
+        const isPasswordValid = await bcrypt.compare(
+            password,
+            existingUser.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(401).send({ error: "Invalid password" });
+        }
+
+        return res.status(200).send({
+            success: "Login successful",
+            id: existingUser._id,
+            name: existingUser.name,
+            email: existingUser.email,
+            role: existingUser.role,
+            verify: existingUser.verify,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: "Internal Server Error" });
     }
 };
 
