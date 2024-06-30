@@ -1,5 +1,28 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-input {
+  padding: 10px 12px;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-input-affix-wrapper {
+  padding: 10px 12px;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-btn-primary {
+  background: #ec7241;
+  padding: 20px 62px;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-btn-primary:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  background: #f56831;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-select-single {
+  height: 44px;
 }
