@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Result = () => {
     let [results, setResults] = useState([]);
+    let [realtime, setRealtime] = useState(Boolean);
     let [usersRoll, setUsersRoll] = useState([]);
 
     useEffect(() => {
@@ -12,20 +13,20 @@ const Result = () => {
                 "http://localhost:8000/getallresult"
             );
             setResults(user_data.data.data);
-            console.log(user_data.data.data);
+            let datas = [];
+
+            user_data.data.data.map((item, index) => {
+                datas.push({
+                    text: item.name,
+                    value: item.name,
+                    key: item._id,
+                });
+            });
+            setUsersRoll(datas);
         }
         callfunc();
-        // let data = [];
+    }, [realtime]);
 
-        // user_data.subjects.map((item, index) => {
-        //     console.log("kk", item);
-        //     data.push({
-        //         text: item.email,
-        //         value: item.email,
-        //         key: item._id,
-        //     });
-        // });
-    }, []);
     const columns = [
         {
             title: "Roll",
@@ -44,18 +45,23 @@ const Result = () => {
             dataIndex: "action",
             render: (_, record) => (
                 <Space>
-                    <Button
-                        danger
-                        // onClick={() => handleDelete(record)}
-                    >
+                    <Button danger onClick={() => handleDelete(record)}>
                         Delete
                     </Button>
 
-                    <Button success>Edit</Button>
+                    <Button danger>Edit</Button>
                 </Space>
             ),
         },
     ];
+
+    let handleDelete = async (id) => {
+        let data = {
+            id: id._id,
+        };
+        await axios.post("http://localhost:8000/deleteresult", data);
+        setRealtime(!realtime);
+    };
     return (
         <>
             {" "}

@@ -32,16 +32,17 @@ const Navbar = () => {
                             Result
                         </li>
                     </Link>
-
-                    <li>
-                        <LogoutOutlined
-                            style={{
-                                fontSize: "24px",
-                                color: "white",
-                                cursor: "pointer",
-                            }}
-                        />
-                    </li>
+                    <Link style={{ textDecoration: "none" }} to="/">
+                        <li>
+                            <LogoutOutlined
+                                style={{
+                                    fontSize: "24px",
+                                    color: "white",
+                                    cursor: "pointer",
+                                }}
+                            />
+                        </li>
+                    </Link>
                 </ul>
             </nav>
         </header>
