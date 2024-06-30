@@ -39,6 +39,10 @@ const Result = () => {
     },
   ];
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <section>
       <div
@@ -108,6 +112,21 @@ const Result = () => {
           dataSource={subject}
           pagination={false}
         />
+      </div>
+      <div style={{ textAlign: "center", margin: "20px 0" }}>
+        <button
+          onClick={handlePrint}
+          style={{
+            backgroundColor: "#ec7241",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Print Result
+        </button>
       </div>
     </section>
   );
