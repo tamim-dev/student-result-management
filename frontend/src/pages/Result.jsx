@@ -4,76 +4,113 @@ import { Space, Table, Tag } from "antd";
 import logo from "../assets/logo.svg";
 
 const Result = () => {
-    const location = useLocation();
-    const user_data = location.state?.user_data;
-    let [subject, setSubject] = useState([]);
+  const location = useLocation();
+  const user_data = location.state?.user_data;
+  let [subject, setSubject] = useState([]);
 
-    useEffect(() => {
-        let data = [];
+  useEffect(() => {
+    let data = [];
 
-        user_data.subjects.map((item, index) => {
-            console.log("kk", item);
-            data.push({
-                ...item,
-            });
-        });
-        setSubject(data);
-    }, []);
+    user_data.subjects.map((item, index) => {
+      console.log("kk", item);
+      data.push({
+        ...item,
+      });
+    });
+    setSubject(data);
+  }, []);
 
-    const columns = [
-        {
-            title: "Code",
-            dataIndex: "subjectcode",
-        },
-        {
-            title: "Subject",
-            dataIndex: "subjectname",
-        },
-        {
-            title: "GPA",
-            dataIndex: "gpa",
-        },
-        {
-            title: "Score",
-            dataIndex: "score",
-        },
-    ];
+  const columns = [
+    {
+      title: "Code",
+      dataIndex: "subjectcode",
+    },
+    {
+      title: "Subject",
+      dataIndex: "subjectname",
+    },
+    {
+      title: "GPA",
+      dataIndex: "gpa",
+    },
+    {
+      title: "Score",
+      dataIndex: "score",
+    },
+  ];
 
-    return (
-        <section style={{ padding: "0 20px" }}>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    background: "#ec7241",
-                    padding: "20px",
-                }}
-            >
-                <img style={{ width: "100px" }} src={logo} />
-                <h1 style={{ color: "white" }}>New Model Degree College</h1>
-            </div>
+  return (
+    <section>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "#ec7241",
+          padding: "20px",
+        }}
+      >
+        <img style={{ width: "100px", marginBottom: "20px" }} src={logo} />
+        <h1 style={{ color: "white" }}>New Model Degree College</h1>
+      </div>
 
-            <h2 style={{ textAlign: "center", margin: "20px 0" }}>
-                Student Result Portal
-            </h2>
-            <h4>Roll No: {user_data.roll}</h4>
-            <h4>Name: {user_data.name}</h4>
-            <h4>Father Name: {user_data.fathername}</h4>
-            <h4>Mother Name: {user_data.mothername}</h4>
-            <h4>Department: {user_data.department}</h4>
-            <h4>GPA: {user_data.gpa}</h4>
-            <h4>Semester: {user_data.semester}</h4>
-            <h4>Session: {user_data.session}</h4>
-            <Table
-                style={{ marginTop: "20px" }}
-                columns={columns}
-                dataSource={subject}
-                pagination={false}
-            />
-        </section>
-    );
+      <div style={{ padding: "0 10%" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            textTransform: "uppercase",
+          }}
+        >
+          Student Result Portal
+        </h2>
+        <div className="result_heading">
+          <div
+            id="result_sit_naming_div"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <span id="result_sit_naming">Name</span>
+            <span id="result_sit_naming_value">: {user_data.name}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Father Name</span>
+            <span id="result_sit_naming_value">: {user_data.fathername}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Mother Name</span>
+            <span id="result_sit_naming_value">: {user_data.mothername}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Roll No</span>
+            <span id="result_sit_naming_value">: {user_data.roll}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Department</span>
+            <span id="result_sit_naming_value">: {user_data.department}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Semester</span>
+            <span id="result_sit_naming_value">: {user_data.semester}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">Session</span>
+            <span id="result_sit_naming_value">: {user_data.session}</span>
+          </div>
+          <div id="result_sit_naming_div">
+            <span id="result_sit_naming">GPA</span>
+            <span id="result_sit_naming_value">: {user_data.gpa}</span>
+          </div>
+        </div>
+        <Table
+          style={{ marginTop: "20px" }}
+          columns={columns}
+          dataSource={subject}
+          pagination={false}
+        />
+      </div>
+    </section>
+  );
 };
 
 export default Result;
